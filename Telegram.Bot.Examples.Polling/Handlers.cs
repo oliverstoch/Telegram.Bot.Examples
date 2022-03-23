@@ -5,6 +5,7 @@ using Telegram.Bot.Types.InlineQueryResults;
 using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 
+
 namespace Telegram.Bot.Examples.Polling;
 
 public class Handlers
@@ -82,17 +83,16 @@ public class Handlers
                     // first row
                     new []
                     {
-                        InlineKeyboardButton.WithCallbackData("1.1", "11"),
-                        InlineKeyboardButton.WithCallbackData("1.2", "12"),
+                        InlineKeyboardButton.WithCallbackData("A Real Bug", "1fgea"),
+                        InlineKeyboardButton.WithCallbackData("Another bug", "12"),
                     },
                     // second row
                     new []
                     {
-                        InlineKeyboardButton.WithCallbackData("2.1", "21"),
-                        InlineKeyboardButton.WithCallbackData("2.2", "22"),
+                        InlineKeyboardButton.WithCallbackData("bugger", "21"),
+                        InlineKeyboardButton.WithCallbackData("bug_mate", "22"),
                     },
                 });
-
             return await botClient.SendTextMessageAsync(chatId: message.Chat.Id,
                                                         text: "Choose",
                                                         replyMarkup: inlineKeyboard);
@@ -173,7 +173,11 @@ public class Handlers
 
         await botClient.SendTextMessageAsync(
             chatId: callbackQuery.Message.Chat.Id,
-            text: $"Received {callbackQuery.Data}");
+            text: $"Received {callbackQuery.Data}...and added a task to asana at this url: ");
+
+        // if callbackQuery.Data=="PLease create a task on asana mr buganator":
+        //      postresponce=AWAIT TELECONTROLLER_OBJ.createTask(name, bugDiscription, SOmethingelse)
+        //      sendMessageAcynv postresponce.url
     }
 
     private static async Task BotOnInlineQueryReceived(ITelegramBotClient botClient, InlineQuery inlineQuery)
